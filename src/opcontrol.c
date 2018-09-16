@@ -46,6 +46,25 @@ inline void inControl(bool bBtnUp, bool bBtnDown)
 	in(inOutput);
 }
 
+int cataOutput;
+inline void cataLaunch(bool bBtnUp, bool bBtnDown)
+{
+	if (bBtnUp)
+	{
+		cataOutput = 127;
+	}
+	else if (bBtnDown)
+	{
+		cataOutput = -127;
+	
+	}
+	else
+	{
+        cataOutput = 0;
+	}
+	cata(cataOutput)
+}
+
 int liftOutput;	
 int iArmDes = 325; //Starting point of lift
 inline void liftControl(bool bBtnUp, bool bBtnDown)
@@ -77,11 +96,11 @@ void operatorControl() {
 	 lcdClear(uart1); 
 	 lcdPrint(uart1, 1, "Batt: %1.3f V", (double)powerLevelMain() / 1000);
 	 lcdPrint(uart1, 2, "Batt: %1.3f V", (double)analogRead(POWER_EXP) / 280);
-	//lcdPrint(uart1, 1, "MANI - %d", analogRead(MANI_POT));
-	//lcdPrint(uart1, 2, "LIFT - %d", analogRead(LIFT_POT));
+	//lcdPrint(uart1, 1, "MANI - %d", analogRead(CATA_POT));
 	driveControl(joyAxis3, joyAxis4);
 	inControl(bBtn5U, bBtn5D);
 	liftControl(bBtn6U, bBtn6D);
-	//printf("%d %d %d\n", analogRead(), analogRead(LIFT_POT), analogRead());
+	cataLaunch(bBtn8U, bBtn8D);
+	printf("%d\n", analogRead(CATA_POT));
 	}
 }

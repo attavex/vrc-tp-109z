@@ -33,6 +33,12 @@ void lift(int iSpeed)
 {
     motorSet(LIFT, iSpeed);
 }
+void cata(int iSpeed)
+{
+    motorSet(CATA_R, iSpeed);
+    motorSet(CATA_L, -iSpeed);
+    motorSet(CATA_SIN, iSpeed);
+}
 
 
 //PD//
