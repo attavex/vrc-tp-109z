@@ -2,23 +2,22 @@
 
 
 /* ------------------------------Motor Numbers--------------------------------- */
-#define DRIVE_RB 
-#define DRIVE_RF 
-#define R_LIFT   
-#define holder
-#define holder 
-#define INTAKE 
-#define holder
-#define L_LIFT 
-#define DRIVE_LF 
-#define DRIVE_LB 
+#define INTAKE 1
+#define DRIVE_RMUL 2
+#define LIFT 3
+#define DRIVE_RSIN 4
+#define CATA_SIN 5
+#define CATA_R 6
+#define CATA_L 7
+#define DRIVE_LSIN 8
+#define DRIVE_LMUL 9
 
 
 
 /* ------------------------------Analog Sensors--------------------------------- */
-#define CATA_POT 1
-#define LIFT_POT 2
-#define GYRO_PORT 3
+#define LIFT_POT 1
+#define GYRO_PORT 2
+#define CATA_SWITCH 3
 Gyro GYRO;
 
 // Bat Voltage (Power Exp)

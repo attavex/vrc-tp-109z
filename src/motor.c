@@ -5,14 +5,14 @@ int driveGet()
     return((encoderGet(LEFT_ENCODER) + encoderGet(RIGHT_ENCODER)) / 2);
 }
 
-void driveSpeed(int iSpeed)
+void driveControl(int speed, int turn)
 {
-    motorSet(DRIVE_LB, -iSpeed);
-	motorSet(DRIVE_LF, iSpeed);
-    motorSet(DRIVE_RB, -iSpeed);
-	motorSet(DRIVE_RF, -iSpeed);
+    motorSet(DRIVE_LMUL, -speed - turn);
+	motorSet(DRIVE_LSIN, -speed + turn);
+    motorSet(DRIVE_RMUL, -speed + turn);
+	motorSet(DRIVE_RSIN, -speed - turn);
 }
-
+/*
 void driveLeft(int iSpeed)
 {
     motorSet(DRIVE_LB, -iSpeed);
@@ -24,14 +24,14 @@ void driveRight(int iSpeed)
     motorSet(DRIVE_RB, -iSpeed);
 	motorSet(DRIVE_RF, -iSpeed);
 }
+*/
 void in(int iSpeed)
 {
-    motorSet(INTAKE, iSpeed)
+    motorSet(INTAKE, iSpeed);
 }
 void lift(int iSpeed) 
 {
-    motorSet(R_LIFT, iSpeed);
-    motorSet(L_LIFT, iSpeed);
+    motorSet(LIFT, iSpeed);
 }
 
 
@@ -93,16 +93,3 @@ void pidRotate(void * parameter)
     driveRight(iRotatePID((int)parameter));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

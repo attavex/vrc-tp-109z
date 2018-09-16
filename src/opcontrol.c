@@ -21,10 +21,10 @@
 
 inline void driveControl(int speed, int turn) //Arcade
 {
-    motorSet(DRIVE_LB, -speed - turn);
-	motorSet(DRIVE_LF, speed + turn);
-    motorSet(DRIVE_RB, -speed + turn);
-	motorSet(DRIVE_RF, -speed + turn);
+    motorSet(DRIVE_LMUL, -speed - turn);
+	motorSet(DRIVE_LSIN, -speed + turn);
+    motorSet(DRIVE_RMUL, -speed + turn);
+	motorSet(DRIVE_RSIN, -speed - turn);
 }
 
 int inOutput;
@@ -66,6 +66,7 @@ inline void liftControl(bool bBtnUp, bool bBtnDown)
 
     lift(liftOutput);
 }
+
 
 void operatorControl() {
 	encoderReset(LEFT_ENCODER);
