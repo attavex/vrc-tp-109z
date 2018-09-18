@@ -55,7 +55,7 @@ iArmPID( int iDes )
   sArmPID.lastError  = sArmPID.error;
 	return ( (sArmPID.error * sArmPID.kP) + (sArmPID.derivative * sArmPID.kD) );
 }
-
+/*
 //DRIVE
 pid sDrivePID;
     int iDrivePID( int target ) 
@@ -99,3 +99,4 @@ void pidRotate(void * parameter)
     driveRight(iRotatePID((int)parameter));
     }
 }
+*/

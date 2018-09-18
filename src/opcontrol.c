@@ -21,11 +21,11 @@
 
 inline void driveControl(int speed, int turn) //Arcade
 {
-    motorSet(DRIVE_LMUL, -speed - turn);
-	motorSet(DRIVE_LSIN, -speed + turn);
-    motorSet(DRIVE_RMUL, -speed + turn);
-	motorSet(DRIVE_RSIN, -speed - turn);
-}
+    motorSet(DRIVE_LMUL, speed - turn);
+	motorSet(DRIVE_LSIN, speed + turn);
+    motorSet(DRIVE_RMUL, speed + turn);
+	motorSet(DRIVE_RSIN, speed - turn);
+	}
 
 int inOutput;
 inline void inControl(bool bBtnUp, bool bBtnDown)
@@ -47,7 +47,7 @@ inline void inControl(bool bBtnUp, bool bBtnDown)
 }
 
 int cataOutput;
-inline void cataLaunch(bool bBtnUp, bool bBtnDown)
+inline void cataLaunch(bool bBtnUp, bool bBtnDown, bool bBtnDownWait)
 {
 	if (bBtnUp)
 	{
@@ -58,26 +58,30 @@ inline void cataLaunch(bool bBtnUp, bool bBtnDown)
 		cataOutput = -127;
 	
 	}
+	else if (bBtnDownWait)
+	{
+		if (digitalRead(CATA_SWITCH))
+		{
+			cataOutput = 0;
+		}
+		cataOutput = -127;
+	}
 	else
 	{
         cataOutput = 0;
 	}
-	cata(cataOutput)
+	cata(cataOutput);
 }
 
 int liftOutput;	
-int iArmDes = 325; //Starting point of lift
+int iArmDes = 325; //Starting point of lift --------------REWORK
 inline void liftControl(bool bBtnUp, bool bBtnDown)
 {
     if(bBtnUp || bBtnDown)
     {
         liftOutput = bBtnUp ? 127 : (bBtnDown ? -127 : 0);
         iArmDes = analogRead(LIFT_POT);
-    } /*
-	else if(analogRead(LIFT_POT) < 3500) 
-	{
-		liftOutput = -15;
-	} */
+    }
     else
     {
         liftOutput = iArmPID(iArmDes);
@@ -100,7 +104,7 @@ void operatorControl() {
 	driveControl(joyAxis3, joyAxis4);
 	inControl(bBtn5U, bBtn5D);
 	liftControl(bBtn6U, bBtn6D);
-	cataLaunch(bBtn8U, bBtn8D);
-	printf("%d\n", analogRead(CATA_POT));
+	cataLaunch(bBtn8U, bBtn8D, bBtn8R);
+	printf("%d\n", analogRead(LIFT_POT));
 	}
 }

@@ -17,7 +17,6 @@
 /* ------------------------------Analog Sensors--------------------------------- */
 #define LIFT_POT 1
 #define GYRO_PORT 2
-#define CATA_SWITCH 3
 Gyro GYRO;
 
 // Bat Voltage (Power Exp)
@@ -29,6 +28,7 @@ Gyro GYRO;
 #define RIGHT_QUAD_BOTTOM_PORT 2
 #define LEFT_QUAD_TOP_PORT 3
 #define LEFT_QUAD_BOTTOM_PORT 4
+#define CATA_SWITCH 5
 
 Encoder RIGHT_ENCODER;
 Encoder LEFT_ENCODER;
@@ -56,6 +56,7 @@ int iDrivePID(int iDes);
 void driveSpeed(int iSpeed);
 void in(int iSpeed);
 void lift(int iSpeed);
+void cata(int iSpeed);
 void pidDrive(void * parameter);
 void pidRotate(void * parameter);
 void lcdAuton_Pages(int selectVal);
