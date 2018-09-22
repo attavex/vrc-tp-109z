@@ -57,6 +57,8 @@ void driveSpeed(int iSpeed);
 void in(int iSpeed);
 void lift(int iSpeed);
 void cata(int iSpeed);
+void cataWind();
+void cataLaunch();
 void pidDrive(void * parameter);
 void pidRotate(void * parameter);
 void lcdAuton_Pages(int selectVal);

@@ -21,10 +21,21 @@
 
 inline void driveControl(int speed, int turn) //Arcade
 {
-    motorSet(DRIVE_LMUL, speed - turn);
-	motorSet(DRIVE_LSIN, speed + turn);
+    if(abs(joyAxis4) > 15 || abs(joyAxis3) > 15)
+	{
+	motorSet(DRIVE_LMUL, -speed + turn);
+	motorSet(DRIVE_LSIN, -speed + turn);
     motorSet(DRIVE_RMUL, speed + turn);
-	motorSet(DRIVE_RSIN, speed - turn);
+	motorSet(DRIVE_RSIN, speed + turn);
+	}
+
+	else
+	{
+	motorSet(DRIVE_LMUL, 0);
+	motorSet(DRIVE_LSIN, 0);
+    motorSet(DRIVE_RMUL, 0);
+	motorSet(DRIVE_RSIN, 0);
+	}
 	}
 
 int inOutput;
@@ -45,7 +56,7 @@ inline void inControl(bool bBtnUp, bool bBtnDown)
 	}
 	in(inOutput);
 }
-
+/*
 int cataOutput;
 inline void cataLaunch(bool bBtnUp, bool bBtnDown, bool bBtnDownWait)
 {
@@ -66,12 +77,17 @@ inline void cataLaunch(bool bBtnUp, bool bBtnDown, bool bBtnDownWait)
 		}
 		cataOutput = -127;
 	}
+	else if (digitalRead(CATA_SWITCH))
+	{
+		cataOutput = 0;
+	}
 	else
 	{
         cataOutput = 0;
 	}
 	cata(cataOutput);
 }
+*/
 
 int liftOutput;	
 int iArmDes = 325; //Starting point of lift --------------REWORK
@@ -91,20 +107,30 @@ inline void liftControl(bool bBtnUp, bool bBtnDown)
 }
 
 
+
 void operatorControl() {
 	encoderReset(LEFT_ENCODER);
 	encoderReset(RIGHT_ENCODER);
 	while (true) 
 	{
      delay(20);
+	 cata(10);
 	 lcdClear(uart1); 
 	 lcdPrint(uart1, 1, "Batt: %1.3f V", (double)powerLevelMain() / 1000);
 	 lcdPrint(uart1, 2, "Batt: %1.3f V", (double)analogRead(POWER_EXP) / 280);
 	//lcdPrint(uart1, 1, "MANI - %d", analogRead(CATA_POT));
 	driveControl(joyAxis3, joyAxis4);
 	inControl(bBtn5U, bBtn5D);
-	liftControl(bBtn6U, bBtn6D);
-	cataLaunch(bBtn8U, bBtn8D, bBtn8R);
+	liftControl(bBtn6D, bBtn6U);
+	//cataLaunch(bBtn8U, bBtn8D, bBtn8R);
+    if (bBtn8D) //wind up/go down
+	{
+        taskCreate(cataWind, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+	}
+	if (bBtn8U) //launch/go up
+	{
+		taskCreate(cataLaunch, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
+	}
 	printf("%d\n", analogRead(LIFT_POT));
 	}
 }

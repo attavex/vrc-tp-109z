@@ -40,6 +40,27 @@ void cata(int iSpeed)
     motorSet(CATA_SIN, iSpeed);
 }
 
+void cataWind() 
+{
+    while(!digitalRead(CATA_SWITCH)) 
+    {
+       cata(127);
+    }
+    taskDelete(NULL);
+}
+
+void cataLaunch() 
+{
+    while(!digitalRead(CATA_SWITCH)) 
+    {
+       cata(127);
+    }
+    cata(60);
+    wait(750);
+    cata(0);
+    taskDelete(NULL);
+}
+
 
 //PD//
 //LIFT
@@ -48,7 +69,7 @@ int
 iArmPID( int iDes ) 
 {
 	sArmPID.kP         = 0.075;
-  sArmPID.kD         = 0.05;
+  sArmPID.kD         = 0.01;
 	sArmPID.current    = analogRead(LIFT_POT);
 	sArmPID.error      = iDes - sArmPID.current;
 	sArmPID.derivative = sArmPID.error - sArmPID.lastError;
