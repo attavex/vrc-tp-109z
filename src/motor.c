@@ -12,19 +12,19 @@ void driveControl(int speed, int turn)
     motorSet(DRIVE_RMUL, -speed + turn);
 	motorSet(DRIVE_RSIN, -speed - turn);
 }
-/*
+
 void driveLeft(int iSpeed)
 {
-    motorSet(DRIVE_LB, -iSpeed);
-	motorSet(DRIVE_LF, iSpeed);
+    motorSet(DRIVE_LMUL, -iSpeed);
+	motorSet(DRIVE_LSIN, -iSpeed);
 }
 
 void driveRight(int iSpeed)
 {
-    motorSet(DRIVE_RB, -iSpeed);
-	motorSet(DRIVE_RF, -iSpeed);
+    motorSet(DRIVE_RSIN, -iSpeed);
+	motorSet(DRIVE_RMUL, -iSpeed);
 }
-*/
+
 void in(int iSpeed)
 {
     motorSet(INTAKE, iSpeed);
@@ -42,7 +42,7 @@ void cata(int iSpeed)
 
 void cataWind() 
 {
-    while(!digitalRead(CATA_SWITCH)) 
+    while(analogRead(CATA_POT) < 850) 
     {
        cata(127);
     }
@@ -51,11 +51,11 @@ void cataWind()
 
 void cataLaunch() 
 {
-    while(!digitalRead(CATA_SWITCH)) 
+    while(digitalRead(CATA_SWITCH) < 850) 
     {
        cata(127);
     }
-    cata(60);
+    cata(90);
     wait(750);
     cata(0);
     taskDelete(NULL);
@@ -76,7 +76,7 @@ iArmPID( int iDes )
   sArmPID.lastError  = sArmPID.error;
 	return ( (sArmPID.error * sArmPID.kP) + (sArmPID.derivative * sArmPID.kD) );
 }
-/*
+
 //DRIVE
 pid sDrivePID;
     int iDrivePID( int target ) 
@@ -120,4 +120,3 @@ void pidRotate(void * parameter)
     driveRight(iRotatePID((int)parameter));
     }
 }
-*/

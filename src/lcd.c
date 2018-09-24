@@ -9,26 +9,28 @@ void lcdAuton_Pages(int selectVal)
     }
     if (selectVal == 1)
     {
-        lcdSetText(uart1, 1, "   20 Pt Mogo   ");
+        lcdSetText(uart1, 1, "      Cap      ");
         lcdSetText(uart1, 2, "    [Select]    ");
     }
     if (selectVal == 2)
     {
-        lcdSetText(uart1, 1, "   5 Pt Mogo    ");
+        lcdSetText(uart1, 1, "    No Cap    ");
         lcdSetText(uart1, 2, "    [Select]    ");
     }
+    /*
     if (selectVal == 3)
     {
         lcdSetText(uart1, 1, "    Blocking    ");
         lcdSetText(uart1, 2, "    [Select]    ");
     }
+    */
 }
 
 /**
  * Global Variable Reminders
  * Pos0 : Type of autonomous
- * Pos1 : Cone quantity
- * Pos2 : Direction
+ * Pos1 : Back/Front
+ * Pos2 : Side
 **/
 void lcdAuton()
 {
@@ -41,7 +43,7 @@ void lcdAuton()
         lcdAuton_Pages(lcdAutonPage);
         if (lcdReadButtons(uart1) == 4)
             lcdAutonPage += 1;
-        if (lcdAutonPage > 0)
+        if (lcdAutonPage > 0 && lcdAutonPage < 3)
         {
             if (lcdReadButtons(uart1) == 1)
                 lcdAutonPage -= 1;
@@ -66,7 +68,7 @@ void lcdAuton()
             selectAuton[1] = lcdAutonPage;
             if(selectAuton[0] == 1 || selectAuton[0] == 2 || selectAuton[0] == 3) { 
                 lcdSetText(uart1, 1, "   What side?   ");
-                lcdSetText(uart1, 2, "[ML]         [O]");
+                lcdSetText(uart1, 2, "[BL]         [R]");
                 wait(250);
                 while (true)
                 {

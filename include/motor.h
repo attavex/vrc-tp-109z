@@ -17,6 +17,7 @@
 /* ------------------------------Analog Sensors--------------------------------- */
 #define LIFT_POT 1
 #define GYRO_PORT 2
+#define CATA_POT 3
 Gyro GYRO;
 
 // Bat Voltage (Power Exp)

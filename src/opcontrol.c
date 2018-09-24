@@ -114,7 +114,6 @@ void operatorControl() {
 	while (true) 
 	{
      delay(20);
-	 cata(10);
 	 lcdClear(uart1); 
 	 lcdPrint(uart1, 1, "Batt: %1.3f V", (double)powerLevelMain() / 1000);
 	 lcdPrint(uart1, 2, "Batt: %1.3f V", (double)analogRead(POWER_EXP) / 280);
@@ -123,6 +122,7 @@ void operatorControl() {
 	inControl(bBtn5U, bBtn5D);
 	liftControl(bBtn6D, bBtn6U);
 	//cataLaunch(bBtn8U, bBtn8D, bBtn8R);
+	
     if (bBtn8D) //wind up/go down
 	{
         taskCreate(cataWind, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
@@ -131,6 +131,7 @@ void operatorControl() {
 	{
 		taskCreate(cataLaunch, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 	}
-	printf("%d\n", analogRead(LIFT_POT));
+	
+	printf("%d\n", analogRead(CATA_POT));
 	}
 }
