@@ -119,15 +119,15 @@ void operatorControl() {
 	 lcdPrint(uart1, 2, "Batt: %1.3f V", (double)analogRead(POWER_EXP) / 280);
 	//lcdPrint(uart1, 1, "MANI - %d", analogRead(CATA_POT));
 	driveControl(joyAxis3, joyAxis4);
-	inControl(bBtn5U, bBtn5D);
-	liftControl(bBtn6D, bBtn6U);
+	inControl(bBtn8L, bBtn8R);
+	liftControl(bBtn5D, bBtn5U);
 	//cataLaunch(bBtn8U, bBtn8D, bBtn8R);
 	
-    if (bBtn8D) //wind up/go down
+    if (bBtn6D) //wind up/go down
 	{
         taskCreate(cataWind, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 	}
-	if (bBtn8U) //launch/go up
+	if (bBtn6U) //launch/go up
 	{
 		taskCreate(cataLaunch, TASK_DEFAULT_STACK_SIZE, NULL, TASK_PRIORITY_DEFAULT);
 	}
