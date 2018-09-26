@@ -24,9 +24,9 @@ inline void driveControl(int speed, int turn) //Arcade
     if(abs(joyAxis4) > 15 || abs(joyAxis3) > 15)
 	{
 	motorSet(DRIVE_LMUL, -speed + turn);
-	motorSet(DRIVE_LSIN, -speed + turn);
+	motorSet(DRIVE_LSIN, -speed - turn);
     motorSet(DRIVE_RMUL, speed + turn);
-	motorSet(DRIVE_RSIN, speed + turn);
+	motorSet(DRIVE_RSIN, speed - turn);
 	}
 
 	else
