@@ -42,7 +42,7 @@ void cata(int iSpeed)
 
 void cataWind() 
 {
-    while(analogRead(CATA_POT) < 600) 
+    while(analogRead(CATA_POT) < 915) 
     {
        cata(127);
     }
@@ -52,7 +52,7 @@ void cataWind()
 
 void cataLaunch() 
 {
-    while(analogRead(CATA_POT) < 600) 
+    while(analogRead(CATA_POT) < 915) 
     {
        cata(127);
     }
