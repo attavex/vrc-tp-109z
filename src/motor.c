@@ -46,12 +46,13 @@ void cataWind()
     {
        cata(127);
     }
+    cata(0);
     taskDelete(NULL);
 }
 
 void cataLaunch() 
 {
-    while(analogRead(CATA_SWITCH) < 600) 
+    while(analogRead(CATA_POT) < 600) 
     {
        cata(127);
     }
