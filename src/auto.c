@@ -1,5 +1,4 @@
 #include "main.h"
-/*
 TaskHandle driveTask, turnTask;
 
 
@@ -31,99 +30,216 @@ void testPIDDrive(int dDes)
   taskDelete(driveTask);
 }
 
+/**
+ * Global Variable Reminders
+ * Pos0 : Type of Autonomous - 1 = Cap/No Park - 2 = No Cap/Park - 3 = Cap/Park
+ * Pos1 : Back/Front - 1 = Back - 2 = Front
+ * Pos2 : Side - 1 = Blue - 2 = Red
+**/
+
 int dDes;
 int gyDes;
-void mogoAutonMaster20(int choice) 
+void capNoParkMaster(int pos, int color) 
 {
-    if(choice == 1)
+    if(pos == 1) //Back - Farthest from Flags
     {
- 
+      if(color == 1) // Blue - Back/Blue Auton
+      {
+
+      }
+      else if(color == 2) // Red - Back/Red Auton
+      {
+
+      }
     }
-    else if(choice == 2)
+    else if(pos == 2) //Front - Closest to Flags
     {
-  
+      if(color == 1) // Blue - Front/Blue Auton
+      {
+
+      }
+      else if(color == 2) // Red - Front/Red Auton
+      {
+
+      }
+    }
 }
 
-void mogoAutonMaster5(int choice)
+void noCapParkMaster(int pos, int color)
 {
-    if(choice == 1)
+    if(pos == 1) //Back - Farthest from Flags
     {
-     
+           if(color == 1) // Blue - Back/Blue Auton
+      {
+
+      }
+      else if(color == 2) // Red - Back/Red Auton
+      {
+
+      }
     }
-    else if(choice == 2)
+    else if(pos == 2) //Front - Closest to Flags
     {
- 
+      if(color == 1) // Blue - Front/Blue Auton
+      {
+
+      }
+      else if(color == 2) // Red - Front/Red Auton
+      {
+
+      }
+    }
+
 }
 
-void blockingAutonMaster(int choice)
+void capParkMaster(int pos, int color)
 {
-  if (choice == 1)
+  if (pos == 1) //Back - Farthest from Flags
   {
+    if(color == 1) // Blue - Back/Blue Auton
+    {
+
+    }
+    else if(color == 2) // Red - Back/Red Auton
+    {
+
+    }
   }
-  else if (choice == 2)
+  else if (pos == 2) //Front - Closest to Flags
   {
+    if(color == 1) // Blue - Front/Blue Auton
+      {
+
+      }
+      else if(color == 2) // Red - Front/Red Auton
+      {
+
+      }
   }
-
-
+}
+/**
+ * Global Variable Reminders
+ * Pos0 : Type of Autonomous - 1 = Cap/No Park - 2 = No Cap/Park - 3 = Cap/Park
+ * Pos1 : Back/Front - 1 = Back - 2 = Front
+ * Pos2 : Side - 1 = Blue - 2 = Red
+**/
 
 void autonomous() 
 {
   encoderReset(LEFT_ENCODER);
   encoderReset(RIGHT_ENCODER);
   gyroReset(GYRO);
-  if(selectAuton[0] == 1) //20-point mogo 2 cone
+  if(selectAuton[0] == 1) //Cap and NO Park Auton
   {
-    if(selectAuton[2] == 1) //match loader side
+    if(selectAuton[1] == 1) //Back(Farthest from Flags)
     {
-      encoderReset(LEFT_ENCODER);
-      encoderReset(RIGHT_ENCODER);
-      gyroReset(GYRO);
-      mogoAutonMaster20(1);
+      if(selectAuton[2] == 1) //Blue Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        capNoParkMaster(1,1);
+      }
+      else if(selectAuton[2] == 2) //Red Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        capNoParkMaster(1,2);
+      }
     }
-    else if(selectAuton[2] == 2) //other side
+    else if(selectAuton[1] == 2) //Front(Closest to Flags)
     {
-      encoderReset(LEFT_ENCODER);
-      encoderReset(RIGHT_ENCODER);
-      gyroReset(GYRO);
-      mogoAutonMaster20(2);
+     if(selectAuton[2] == 1) //Blue Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        capNoParkMaster(2,1);
+      }
+      else if(selectAuton[2] == 2) //Red Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        capNoParkMaster(2,2);
+      }
     }
   }
 
-  if(selectAuton[0] == 2) //5-point mogo 2 cone
+  if(selectAuton[0] == 2) //NO Cap/Park
   {
-     if(selectAuton[2] == 1) //Match loader side
+     if(selectAuton[1] == 1) //Back(Farthest from Flags)
     {
-      encoderReset(LEFT_ENCODER);
-      encoderReset(RIGHT_ENCODER);
-      gyroReset(GYRO);
-      mogoAutonMaster5(1);
+     if(selectAuton[2] == 1) //Blue Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        noCapParkMaster(1,1);
+      }
+      else if(selectAuton[2] == 2) //Red Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        noCapParkMaster(1,2);
+      }
     }
-    else if(selectAuton[2] == 2) //other side
+    else if(selectAuton[1] == 2) //Front(Closest to Flags)
     {
-      encoderReset(LEFT_ENCODER);
-      encoderReset(RIGHT_ENCODER);
-      gyroReset(GYRO);
-      mogoAutonMaster5(2);
-    }
+      if(selectAuton[2] == 1) //Blue Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        noCapParkMaster(2,1);
+      }
+      else if(selectAuton[2] == 2) //Red Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        noCapParkMaster(2,2);
+      }
   }
 
-  if(selectAuton[0] == 3) //blocking
+  if(selectAuton[0] == 3) //Cap AND Park
   {
-       if(selectAuton[2] == 1) //Match loader side
+    if(selectAuton[1] == 1) //Back(Farthest from Flags)
     {
-      encoderReset(LEFT_ENCODER);
-      encoderReset(RIGHT_ENCODER);
-      gyroReset(GYRO);
-      blockingAutonMaster(1);
+      if(selectAuton[2] == 1) //Blue Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        capParkMaster(1,1);
+      }
+      else if(selectAuton[2] == 2) //Red Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        capParkMaster(1,2);
+      }
     }
-    else if(selectAuton[2] == 2) //other side
+    else if(selectAuton[1] == 2) //Front(Closest to Flags)
     {
-      encoderReset(LEFT_ENCODER);
-      encoderReset(RIGHT_ENCODER);
-      gyroReset(GYRO);
-      blockingAutonMaster(2);
+     if(selectAuton[2] == 1) //Blue Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        capParkMaster(2,1);
+      }
+      else if(selectAuton[2] == 2) //Red Side
+      {
+        encoderReset(LEFT_ENCODER);
+        encoderReset(RIGHT_ENCODER);
+        gyroReset(GYRO);
+        capParkMaster(2,2);
+      }
     }
   }
-  
 }
-*/
+}
