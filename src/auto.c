@@ -5,7 +5,6 @@ TaskHandle driveTask, turnTask;
 
 
 
-
 void testPIDRotate(int gyDes)
 {
   turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
@@ -18,6 +17,7 @@ void testPIDRotate(int gyDes)
   taskDelete(turnTask);
 }
 
+
 void testPIDDrive(int dDes)
 {
   driveTask = taskCreate(pidDrive, TASK_DEFAULT_STACK_SIZE, (void*)dDes, TASK_PRIORITY_DEFAULT);
@@ -29,6 +29,7 @@ void testPIDDrive(int dDes)
   delay(500);
   taskDelete(driveTask);
 }
+
 
 /**
  * Global Variable Reminders
@@ -56,11 +57,157 @@ void capNoParkMaster(int pos, int color)
     {
       if(color == 1) // Blue - Front/Blue Auton
       {
-
+	    while(analogRead(CATA_POT) < 915) 
+        {
+        cata(127);
+        }
+        cata(90);
+        wait(300);
+        cata(0);
+		wait(100);
+ 	 	gyDes = 170;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1550)
+  		{
+  			if(driveGet() < -1550) driveSpeed(0); 
+  			delay(20);
+  		}
+		driveSpeed(0);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 300)
+  		{
+  			if(driveGet() > 300) driveSpeed(0);
+  			delay(20);
+  		}
+		gyDes = -62;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 250)
+  		{
+  			if(driveGet() > 250) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
       }
       else if(color == 2) // Red - Front/Red Auton
       {
-
+	    while(analogRead(CATA_POT) < 915) 
+        {
+        cata(127);
+        }
+        cata(90);
+        wait(300);
+        cata(0);
+		wait(100);
+ 	 	gyDes = -170;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1550)
+  		{
+  			if(driveGet() < -1550) driveSpeed(0); 
+  			delay(20);
+  		}
+		driveSpeed(0);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 300)
+  		{
+  			if(driveGet() > 300) driveSpeed(0);
+  			delay(20);
+  		}
+		gyDes = 62;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 250)
+  		{
+  			if(driveGet() > 250) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
       }
     }
 }

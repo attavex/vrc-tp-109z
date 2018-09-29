@@ -5,6 +5,14 @@ int driveGet()
     return((encoderGet(LEFT_ENCODER) + encoderGet(RIGHT_ENCODER)) / 2);
 }
 
+void driveSpeed(int iSpeed)
+{
+    motorSet(DRIVE_LMUL, -iSpeed);
+	motorSet(DRIVE_LSIN, -iSpeed);
+    motorSet(DRIVE_RMUL, iSpeed);
+	motorSet(DRIVE_RSIN, iSpeed);
+}
+
 void driveControl(int speed, int turn)
 {
     motorSet(DRIVE_LMUL, -speed - turn);
@@ -16,12 +24,12 @@ void driveControl(int speed, int turn)
 void driveLeft(int iSpeed)
 {
     motorSet(DRIVE_LMUL, -iSpeed);
-	motorSet(DRIVE_LSIN, -iSpeed);
+	motorSet(DRIVE_LSIN, iSpeed);
 }
 
 void driveRight(int iSpeed)
 {
-    motorSet(DRIVE_RSIN, -iSpeed);
+    motorSet(DRIVE_RSIN, iSpeed);
 	motorSet(DRIVE_RMUL, -iSpeed);
 }
 
@@ -52,14 +60,14 @@ void cataWind()
 
 void cataLaunch() 
 {
-    while(analogRead(CATA_POT) < 915) 
-    {
-       cata(127);
-    }
-    cata(90);
-    wait(750);
-    cata(0);
-    taskDelete(NULL);
+        while(analogRead(CATA_POT) < 915) 
+        {
+        cata(127);
+        }
+        cata(90);
+        wait(300);
+        cata(0);
+        taskDelete(NULL);
 }
 
 
@@ -69,8 +77,8 @@ pid sArmPID;
 int
 iArmPID( int iDes ) 
 {
-	sArmPID.kP         = 0.075;
-  sArmPID.kD         = 0.01;
+	sArmPID.kP         = 0;
+  sArmPID.kD         = 0;
 	sArmPID.current    = analogRead(LIFT_POT);
 	sArmPID.error      = iDes - sArmPID.current;
 	sArmPID.derivative = sArmPID.error - sArmPID.lastError;
@@ -94,8 +102,8 @@ pid sDrivePID;
     pid sRotatePID;
     int iRotatePID( int target) 
     {
-    sRotatePID.kP = 9;
-    sRotatePID.kD = 4;
+    sRotatePID.kP = 2.65;
+    sRotatePID.kD = 2;
     sRotatePID.kI = 0; 
     sRotatePID.current = gyroGet(GYRO);
     sRotatePID.error = target - sRotatePID.current;
@@ -117,7 +125,7 @@ void pidRotate(void * parameter)
 {
     while(true)
     {
-    driveLeft(-iRotatePID((int)parameter));
+    driveLeft(iRotatePID((int)parameter));
     driveRight(iRotatePID((int)parameter));
     }
 }
