@@ -4,7 +4,7 @@ void lcdAuton_Pages(int selectVal)
 {
     if (selectVal == 0)
     {
-        lcdSetText(uart1, 1, " Swipe right >> ");
+        lcdSetText(uart1, 1, "LAMBERT ROBOTICS");
         lcdSetText(uart1, 2, "[None]    [PICK]");
     }
     if (selectVal == 1)
@@ -40,12 +40,17 @@ void lcdAuton()
     while (true)
     {
         lcdAuton_Pages(lcdAutonPage);
-        if (lcdReadButtons(uart1) == 4)
+        if (lcdReadButtons(uart1) == 4){
             lcdAutonPage += 1;
-        if (lcdAutonPage > 0 && lcdAutonPage < 3)
+        }
+            
+        if (lcdAutonPage > 0 && lcdAutonPage < 4)
         {
             if (lcdReadButtons(uart1) == 1)
-                lcdAutonPage -= 1;
+            {
+                 lcdAutonPage -= 1;
+            }
+               
         }
         else if(lcdReadButtons(uart1) == 1) {
             lcdAutonPage = 0;
@@ -62,7 +67,7 @@ void lcdAuton()
         delay(10);
     }
     selectAuton[0] = lcdAutonPage;
-      if (selectAuton[0] == 1 || selectAuton[0] == 2 || selectAuton[0] == 3)
+    if (selectAuton[0] == 1 || selectAuton[0] == 2 || selectAuton[0] == 3)
     {
             selectAuton[1] = lcdAutonPage;
             if(selectAuton[0] == 1 || selectAuton[0] == 2 || selectAuton[0] == 3) { 
@@ -84,6 +89,7 @@ void lcdAuton()
                     delay(10);
                 }
                 selectAuton[1] = lcdAutonPage;
+                printf("%d\n", selectAuton[1]);
             }
     }
     if (selectAuton[1] == 1 || selectAuton[1] == 2)
@@ -108,6 +114,7 @@ void lcdAuton()
                     delay(10);
                 }
                 selectAuton[2] = lcdAutonPage;
+                printf("%d\n", selectAuton[2]);
             }
     }
 }   

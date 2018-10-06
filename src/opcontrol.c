@@ -1,5 +1,5 @@
 #include "main.h"
-
+TaskHandle turnTask;
 // Joy Values
 #define joyAxis1 joystickGetAnalog(1, 1)
 #define joyAxis2 joystickGetAnalog(1, 2)
@@ -21,7 +21,7 @@
 
 inline void driveControl(int speed, int turn) //Arcade
 {
-    if(abs(joyAxis4) > 15 || abs(joyAxis3) > 15)
+    if(abs(joyAxis4) > 20 || abs(joyAxis3) > 20)
 	{
 	motorSet(DRIVE_LMUL, -speed + turn);
 	motorSet(DRIVE_LSIN, -speed - turn);
@@ -46,7 +46,7 @@ inline void inControl(bool bBtnUp, bool bBtnDown)
 	{
 		inOutput = 127;  
 	}
-	else if (bBtnDown) 
+	else if (bBtnDown)
 	{
 		inOutput = -127;
 	}
@@ -90,23 +90,20 @@ inline void cataLaunch(bool bBtnUp, bool bBtnDown, bool bBtnDownWait)
 */
 
 int liftOutput;	
-int iArmDes = 620; //Starting point of lift --------------REWORK
+int iArmDes = 0; //Starting point of lift --------------REWORK
 inline void liftControl(bool bBtnUp, bool bBtnDown)
 {
     if(bBtnUp || bBtnDown)
     {
         liftOutput = bBtnUp ? 127 : (bBtnDown ? -127 : 0);
         iArmDes = analogRead(LIFT_POT);
-    }
-    else
+	}
+	else
     {
         liftOutput = iArmPID(iArmDes);
     }
     lift(liftOutput);
 }
-
-
-TaskHandle turnTask;
 
 int gyDes;
 void operatorControl() {
@@ -136,32 +133,6 @@ void operatorControl() {
 
 	if (bBtn7L) //test auton - rn blue cap and park and ball front
 	{
-	    while(analogRead(CATA_POT) < 915) 
-        {
-        cata(127);
-        }
-        cata(90);
-        wait(300);
-        cata(0);
-		wait(100);
- 	 	gyDes = 170;
-		gyroReset(GYRO);
-  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
-  		while(gyroGet(GYRO) < gyDes)
-  		{
-    		delay(15);
- 		}
-  		delay(500);
-  		taskDelete(turnTask);
-		encoderReset(LEFT_ENCODER);
-  		encoderReset(RIGHT_ENCODER);
-		driveSpeed(-127);
-   		while(driveGet() > -1550)
-  		{
-  			if(driveGet() < -1550) driveSpeed(0); 
-  			delay(20);
-  		}
-		driveSpeed(0);
 		lift(-127);
 		while(analogRead(LIFT_POT) < 200)
 		{
@@ -173,15 +144,27 @@ void operatorControl() {
 			if(analogRead(LIFT_POT) < 20) lift(0);
 		}
 		lift(0);
+		in(127);
 		encoderReset(LEFT_ENCODER);
-  		encoderReset(RIGHT_ENCODER);
-		driveSpeed(127);
-   		while(driveGet() < 300)
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1100)
   		{
-  			if(driveGet() > 300) driveSpeed(0);
+  			if(driveGet() < -1100) driveSpeed(0);
   			delay(20);
   		}
-		gyDes = -62;
+		driveSpeed(0);
+		wait(250);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 500)
+  		{
+  			if(driveGet() > 500) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		gyDes = -140;
 		gyroReset(GYRO);
   		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
   		while(gyroGet(GYRO) > gyDes)
@@ -191,25 +174,52 @@ void operatorControl() {
   		delay(500);
   		taskDelete(turnTask);
 		encoderReset(LEFT_ENCODER);
-  		encoderReset(RIGHT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
 		driveSpeed(127);
-   		while(driveGet() < 250)
+   		while(driveGet() < 350)
   		{
-  			if(driveGet() > 250) driveSpeed(0);
+  			if(driveGet() > 350) driveSpeed(0);
   			delay(20);
   		}
-		driveSpeed(0);
+		  driveSpeed(0);
+		  wait(500);
 		lift(-127);
 		while(analogRead(LIFT_POT) < 200)
 		{
 			if(analogRead(LIFT_POT) > 210) lift(127);
 		}
+
 		lift(127);
 		while(analogRead(LIFT_POT) > 25)
 		{
 			if(analogRead(LIFT_POT) < 20) lift(0);
 		}
 		lift(0);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+		lift(-127);
+   		while(driveGet() > -1775 || analogRead(LIFT_POT) < 300)
+  		{
+  			if(driveGet() < -1775) driveSpeed(0);
+			if(analogRead(LIFT_POT) > 300) lift(0);
+  			delay(20);
+  		}
+		//lift(0);
+		driveSpeed(0);
+		gyDes = -50;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		driveSpeed(90);
+		wait(3000);
+		driveSpeed(0);
+
 	}
 
 	if (bBtn8U)
@@ -228,6 +238,6 @@ void operatorControl() {
 		lift(0);
 	}
 	//printf("%d %d\n", encoderGet(LEFT_ENCODER), encoderGet(RIGHT_ENCODER));
-	printf("%d\n", analogRead(LIFT_POT));
+	printf("%d %d\n", analogRead(LIFT_POT), iArmPID(iArmDes));
 	}
 }

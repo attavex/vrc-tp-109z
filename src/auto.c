@@ -46,10 +46,136 @@ void capNoParkMaster(int pos, int color)
     {
       if(color == 1) // Blue - Back/Blue Auton
       {
+    lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		in(127);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1100)
+  		{
+  			if(driveGet() < -1100) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		wait(250);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 500)
+  		{
+  			if(driveGet() > 500) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		gyDes = -140;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 380)
+  		{
+  			if(driveGet() > 380) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		  wait(500);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		
 
       }
       else if(color == 2) // Red - Back/Red Auton
       {
+    lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		in(127);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1100)
+  		{
+  			if(driveGet() < -1100) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		wait(250);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 500)
+  		{
+  			if(driveGet() > 500) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		gyDes = 140;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 380)
+  		{
+  			if(driveGet() > 380) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		  wait(500);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		
 
       }
     }
@@ -245,22 +371,406 @@ void capParkMaster(int pos, int color)
   {
     if(color == 1) // Blue - Back/Blue Auton
     {
+    lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		in(127);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1100)
+  		{
+  			if(driveGet() < -1100) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		wait(250);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 500)
+  		{
+  			if(driveGet() > 500) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		gyDes = -140;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 350)
+  		{
+  			if(driveGet() > 350) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		  wait(500);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
 
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+		lift(-127);
+   		while(driveGet() > -1775 || analogRead(LIFT_POT) < 300)
+  		{
+  			if(driveGet() < -1775) driveSpeed(0);
+			if(analogRead(LIFT_POT) > 300) lift(0);
+  			delay(20);
+  		}
+		lift(0);
+		driveSpeed(0);
+		gyDes = -50;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		driveSpeed(90);
+		wait(3000);
+		driveSpeed(0);
     }
     else if(color == 2) // Red - Back/Red Auton
     {
+    lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		in(127);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1100)
+  		{
+  			if(driveGet() < -1100) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		wait(250);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 500)
+  		{
+  			if(driveGet() > 500) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		gyDes = 140;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 350)
+  		{
+  			if(driveGet() > 350) driveSpeed(0);
+  			delay(20);
+  		}
+		  driveSpeed(0);
+		  wait(500);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
 
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		encoderReset(LEFT_ENCODER);
+		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+		lift(-127);
+   		while(driveGet() > -1775 || analogRead(LIFT_POT) < 300)
+  		{
+  			if(driveGet() < -1775) driveSpeed(0);
+			if(analogRead(LIFT_POT) > 300) lift(0);
+  			delay(20);
+  		}
+		//lift(0);
+		driveSpeed(0);
+		gyDes = 50;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		driveSpeed(90);
+		wait(3000);
+		driveSpeed(0);
     }
   }
   else if (pos == 2) //Front - Closest to Flags
   {
     if(color == 1) // Blue - Front/Blue Auton
       {
-
+	    while(analogRead(CATA_POT) < 915) 
+        {
+        cata(127);
+        }
+        cata(90);
+        wait(300);
+        cata(0);
+		wait(100);
+ 	 	gyDes = 165;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1550)
+  		{
+  			if(driveGet() < -1550) driveSpeed(0); 
+  			delay(20);
+  		}
+		driveSpeed(0);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 300)
+  		{
+  			if(driveGet() > 300) driveSpeed(0);
+  			delay(20);
+  		}
+		gyDes = -62;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 250)
+  		{
+  			if(driveGet() > 250) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 100)
+		{
+			if(analogRead(LIFT_POT) < 100) lift(0);
+		}
+		lift(0);
+		gyDes = 70;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+		lift(-127);
+   		while(driveGet() < 1775 || analogRead(LIFT_POT) < 100)
+  		{
+  			if(driveGet() > 1775) driveSpeed(0);
+			if(analogRead(LIFT_POT) > 100) lift(0);
+  			delay(20);
+  		}
+		lift(0);
+		driveSpeed(0);
+		gyDes = -110;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		driveSpeed(127);
+		wait(2500);
+		driveSpeed(0);
+		
       }
       else if(color == 2) // Red - Front/Red Auton
       {
-
+	    while(analogRead(CATA_POT) < 915) 
+        {
+        cata(127);
+        }
+        cata(90);
+        wait(300);
+        cata(0);
+		wait(100);
+ 	 	gyDes = -165;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(-127);
+   		while(driveGet() > -1550)
+  		{
+  			if(driveGet() < -1550) driveSpeed(0); 
+  			delay(20);
+  		}
+		driveSpeed(0);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 25)
+		{
+			if(analogRead(LIFT_POT) < 20) lift(0);
+		}
+		lift(0);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 300)
+  		{
+  			if(driveGet() > 300) driveSpeed(0);
+  			delay(20);
+  		}
+		gyDes = 62;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+   		while(driveGet() < 250)
+  		{
+  			if(driveGet() > 250) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		lift(-127);
+		while(analogRead(LIFT_POT) < 200)
+		{
+			if(analogRead(LIFT_POT) > 210) lift(127);
+		}
+		lift(127);
+		while(analogRead(LIFT_POT) > 100)
+		{
+			if(analogRead(LIFT_POT) < 100) lift(0);
+		}
+		lift(0);
+		gyDes = -70;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) < gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		driveSpeed(127);
+		lift(-127);
+   		while(driveGet() < 1775 || analogRead(LIFT_POT) < 100)
+  		{
+  			if(driveGet() > 1775) driveSpeed(0);
+			if(analogRead(LIFT_POT) > 100) lift(0);
+  			delay(20);
+  		}
+		lift(0);
+		driveSpeed(0);
+		gyDes = 110;
+		gyroReset(GYRO);
+  		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
+  		while(gyroGet(GYRO) > gyDes)
+  		{
+    		delay(15);
+ 		}
+  		delay(500);
+  		taskDelete(turnTask);
+		driveSpeed(127);
+		wait(2500);
+		driveSpeed(0);
+		
       }
   }
 }
@@ -314,7 +824,7 @@ void autonomous()
     }
   }
 
-  if(selectAuton[0] == 2) //NO Cap/Park
+  else if(selectAuton[0] == 2) //NO Cap/Park
   {
      if(selectAuton[1] == 1) //Back(Farthest from Flags)
     {
@@ -351,7 +861,7 @@ void autonomous()
       }
   }
 
-  if(selectAuton[0] == 3) //Cap AND Park
+  else if(selectAuton[0] == 3) //Cap AND Park
   {
     if(selectAuton[1] == 1) //Back(Farthest from Flags)
     {

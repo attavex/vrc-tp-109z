@@ -50,7 +50,7 @@ void cata(int iSpeed)
 
 void cataWind() 
 {
-    while(analogRead(CATA_POT) < 915) 
+    while(analogRead(CATA_POT) < 890) 
     {
        cata(127);
     }
@@ -60,12 +60,17 @@ void cataWind()
 
 void cataLaunch() 
 {
-        while(analogRead(CATA_POT) < 915) 
+        while(analogRead(CATA_POT) < 890) 
         {
         cata(127);
         }
         cata(90);
         wait(300);
+        cata(0);
+        while(analogRead(CATA_POT) < 890) 
+        {
+        cata(127);
+        }
         cata(0);
         taskDelete(NULL);
 }
@@ -77,10 +82,10 @@ pid sArmPID;
 int
 iArmPID( int iDes ) 
 {
-	sArmPID.kP         = 0;
-  sArmPID.kD         = 0;
+	sArmPID.kP         = 0.075;
+  sArmPID.kD         = 0.1;
 	sArmPID.current    = analogRead(LIFT_POT);
-	sArmPID.error      = iDes - sArmPID.current;
+	sArmPID.error      = sArmPID.current - iDes;
 	sArmPID.derivative = sArmPID.error - sArmPID.lastError;
   sArmPID.lastError  = sArmPID.error;
 	return ( (sArmPID.error * sArmPID.kP) + (sArmPID.derivative * sArmPID.kD) );
