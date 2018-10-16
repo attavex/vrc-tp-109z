@@ -62,9 +62,9 @@ void cataLaunch()
 {
         while(analogRead(CATA_POT) < 890) 
         {
-        cata(127);
+        cata(60);
         }
-        cata(90);
+        cata(60);
         wait(300);
         cata(0);
         while(analogRead(CATA_POT) < 890) 

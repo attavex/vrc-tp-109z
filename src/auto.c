@@ -61,9 +61,9 @@ void capNoParkMaster(int pos, int color)
 		encoderReset(LEFT_ENCODER);
 		encoderReset(RIGHT_ENCODER);
 		driveSpeed(-127);
-   		while(driveGet() > -1100)
+   		while(driveGet() > -200)
   		{
-  			if(driveGet() < -1100) driveSpeed(0);
+  			if(driveGet() < -200) driveSpeed(0);
   			delay(20);
   		}
 		driveSpeed(0);
@@ -128,9 +128,9 @@ void capNoParkMaster(int pos, int color)
 		encoderReset(LEFT_ENCODER);
 		encoderReset(RIGHT_ENCODER);
 		driveSpeed(-127);
-   		while(driveGet() > -1100)
+   		while(driveGet() > -600)
   		{
-  			if(driveGet() < -1100) driveSpeed(0);
+  			if(driveGet() < -600) driveSpeed(0);
   			delay(20);
   		}
 		driveSpeed(0);
@@ -138,9 +138,9 @@ void capNoParkMaster(int pos, int color)
 		encoderReset(LEFT_ENCODER);
 		encoderReset(RIGHT_ENCODER);
 		driveSpeed(127);
-   		while(driveGet() < 500)
+   		while(driveGet() < 300)
   		{
-  			if(driveGet() > 500) driveSpeed(0);
+  			if(driveGet() > 300) driveSpeed(0);
   			delay(20);
   		}
 		  driveSpeed(0);
@@ -156,9 +156,9 @@ void capNoParkMaster(int pos, int color)
 		encoderReset(LEFT_ENCODER);
 		encoderReset(RIGHT_ENCODER);
 		driveSpeed(127);
-   		while(driveGet() < 380)
+   		while(driveGet() < 90)
   		{
-  			if(driveGet() > 380) driveSpeed(0);
+  			if(driveGet() > 90) driveSpeed(0);
   			delay(20);
   		}
 		  driveSpeed(0);
@@ -554,13 +554,13 @@ void capParkMaster(int pos, int color)
       {
 	    while(analogRead(CATA_POT) < 915) 
         {
-        cata(127);
+        cata(60);
         }
-        cata(90);
+        cata(60);
         wait(300);
         cata(0);
 		wait(100);
- 	 	gyDes = 165;
+ 	 	gyDes = 170;
 		gyroReset(GYRO);
   		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
   		while(gyroGet(GYRO) < gyDes)
@@ -589,6 +589,7 @@ void capParkMaster(int pos, int color)
 			if(analogRead(LIFT_POT) < 20) lift(0);
 		}
 		lift(0);
+		/*
 		encoderReset(LEFT_ENCODER);
   		encoderReset(RIGHT_ENCODER);
 		driveSpeed(127);
@@ -626,6 +627,7 @@ void capParkMaster(int pos, int color)
 			if(analogRead(LIFT_POT) < 100) lift(0);
 		}
 		lift(0);
+		/*
 		gyDes = 70;
 		gyroReset(GYRO);
   		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
@@ -659,22 +661,34 @@ void capParkMaster(int pos, int color)
 		driveSpeed(127);
 		wait(2500);
 		driveSpeed(0);
-		
+		*/
       }
       else if(color == 2) // Red - Front/Red Auton
       {
+				/*
+			encoderReset(LEFT_ENCODER);
+  		encoderReset(RIGHT_ENCODER);
+		  driveSpeed(0);
+   		while(driveGet() < 150)
+  		{
+  			if(driveGet() > 150) driveSpeed(0);
+  			delay(20);
+  		}
+		driveSpeed(0);
+		wait(700);
+		*/
 	    while(analogRead(CATA_POT) < 915) 
         {
-        cata(127);
+        cata(79);
         }
-        cata(90);
+        cata(79);
         wait(300);
         cata(0);
-		wait(100);
- 	 	gyDes = -165;
+		    wait(100);
+ 	 	gyDes = -183;
 		gyroReset(GYRO);
   		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
-  		while(gyroGet(GYRO) < gyDes)
+  		while(gyroGet(GYRO) > gyDes)
   		{
     		delay(15);
  		}
@@ -683,9 +697,9 @@ void capParkMaster(int pos, int color)
 		encoderReset(LEFT_ENCODER);
   		encoderReset(RIGHT_ENCODER);
 		driveSpeed(-127);
-   		while(driveGet() > -1550)
+   		while(driveGet() > -1300)
   		{
-  			if(driveGet() < -1550) driveSpeed(0); 
+  			if(driveGet() < -1300) driveSpeed(0); 
   			delay(20);
   		}
 		driveSpeed(0);
@@ -700,6 +714,7 @@ void capParkMaster(int pos, int color)
 			if(analogRead(LIFT_POT) < 20) lift(0);
 		}
 		lift(0);
+		/*
 		encoderReset(LEFT_ENCODER);
   		encoderReset(RIGHT_ENCODER);
 		driveSpeed(127);
@@ -708,10 +723,11 @@ void capParkMaster(int pos, int color)
   			if(driveGet() > 300) driveSpeed(0);
   			delay(20);
   		}
+			wait(500);
 		gyDes = 62;
 		gyroReset(GYRO);
   		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
-  		while(gyroGet(GYRO) > gyDes)
+  		while(gyroGet(GYRO) < gyDes)
   		{
     		delay(15);
  		}
@@ -740,7 +756,7 @@ void capParkMaster(int pos, int color)
 		gyDes = -70;
 		gyroReset(GYRO);
   		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
-  		while(gyroGet(GYRO) < gyDes)
+  		while(gyroGet(GYRO) > gyDes)
   		{
     		delay(15);
  		}
@@ -761,7 +777,7 @@ void capParkMaster(int pos, int color)
 		gyDes = 110;
 		gyroReset(GYRO);
   		turnTask = taskCreate(pidRotate, TASK_DEFAULT_STACK_SIZE, (void*)gyDes, TASK_PRIORITY_DEFAULT);
-  		while(gyroGet(GYRO) > gyDes)
+  		while(gyroGet(GYRO) < gyDes)
   		{
     		delay(15);
  		}
@@ -769,7 +785,7 @@ void capParkMaster(int pos, int color)
   		taskDelete(turnTask);
 		driveSpeed(127);
 		wait(2500);
-		driveSpeed(0);
+		driveSpeed(0);*/
       }
   }
 }
